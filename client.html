@@ -43,6 +43,11 @@ function log(message) {
     <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
     <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../../../css/main.css">
+	<script>
+            function hideDiv() {
+                document.getElementById("toHide").style.display="none";    
+            }
+        </script>
 
 </head>
 
@@ -53,8 +58,8 @@ function log(message) {
 <!-- <span class="blink_img"><img src="red.jpg" style="width:200px;" /></span> -->
 
    
- <div style="text-align:center">
-  <video id="gum-local" width="250" height="400" style="pointer-events: none;"></video>
+ <div id="toHide" style="text-align:center">
+  <video id="gum-local" width="250" height="400"></video>
       </div>
     <div style="text-align:center">
     <button id="showVideo"  onclick="imageShow()">Activate</button></div>
