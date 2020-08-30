@@ -115,6 +115,17 @@
 
 
 </script>
+<div class="row">
+        <div class="column">
+            <p><input type="text" size="30" value="Red">
+          <button id="b1">Send</button>
+          </p>
+          </div>
+        <div class="column">
+      <p><input type="text" size="30" value="Gray">
+          <button id="b2">Send</button>
+          </p>
+          </div>
 
  <div class="row">
         <div class="column">
@@ -309,6 +320,29 @@
         </div>
     </div>
 <script>
+
+document.getElementById("b1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="Red"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+
+document.getElementById("b2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="Gray"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+
   document.getElementById("button1").onclick = function(ev) {
     if (ev.button == 0) {
       if (b.lastwirecount) {
