@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
+
+
+
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style>
+    pre { align:center;color: #000; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; }
+    #input { align:center;border-bottom: 2px solid #ccc; background-color: #fff; padding: 0.25em; outline: 0; opacity:0.5;}
+    #input::before { content: ""; }
+    #image{
+            display:none;
+  </style>
+  <script>
+  // log events as they happen
+function log(message) {
+    document.getElementById("log").textContent += message+"\n";
+}
+  </script>
+  <script src="https://chr15m.github.io/bugout/bugout.min.js" type="application/javascript"></script>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Lip Reading">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="Lip Reading">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Lip Reading</title>
+
+    <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../css/main.css">
+
+</head>
+
+<body>
+
+<div id="container" style="text-align:center" >
+<video id="gum-local" autoplay playsinline width="570" height="340"></video>
+      </div>
+  <!--   <div style="text-align:center">
+  <video id="gum-local" width="570" height="340"></video>
+      </div> -->
+    <div style="text-align:center">
+    <button id="showVideo"  onclick="imageShow()">Open camera</button></div>
+   <!-- <div style="text-align:center"> <p><button onclick="clickCounter1()" type="button">Start</button> <div id="result1"></div></p></div> -->
+  <script>
+             function imageShow(){
+                    document.getElementById('image').style.display = "block";       
+                    }
+        </script>
+  
+
+   
+
+<div style="text-align:center">
+    <!-- <div id="result2" style="text-align:center"></div></div> -->
+  <pre id="log" style="text-align: center;"></pre>
+<pre id="input" style="text-align: center;" contenteditable="true"></pre>
+
+
+<script>
+localStorage.text=0
+localStorage.clickcount1=0
+function clickCounter1() {
+  if (typeof(Storage) !== "undefined") {
+    if (localStorage.clickcount1) {
+      localStorage.clickcount1 = Number(localStorage.clickcount1)+1;
+    } else {
+      localStorage.clickcount1 = 1;
+    }
+   
+if(localStorage.clickcount1=="1"){
+     document.getElementById("result1").innerHTML = "Redeem"
+     localStorage.text = "Redeem"
+log("Redeem")
+}
+if(localStorage.clickcount1=="2"){
+     document.getElementById("result1").innerHTML = "Credit"
+     localStorage.text = "Credit"
+     log(" ")
+}
+if(localStorage.clickcount1=="3"){
+     document.getElementById("result1").innerHTML = "Debit"
+     localStorage.text = "Debit"
+log(" ")
+}
+if(localStorage.clickcount1=="4"){
+     document.getElementById("result1").innerHTML = "Pay"
+localStorage.text = "Pay"
+log(" ")
+}
+if(localStorage.clickcount1=="5"){
+     document.getElementById("result1").innerHTML = "Cash"
+localStorage.text = "Cash"
+log(" ")
+}
+
+if(localStorage.clickcount1=="6"){
+     document.getElementById("result1").innerHTML = "Yes"
+     localStorage.text = "Yes"
+log(" ")
+}
+if(localStorage.clickcount1=="7"){
+     document.getElementById("result1").innerHTML = "No"
+localStorage.text = "No"
+log(" ")
+}
+if(localStorage.clickcount1=="8"){
+     document.getElementById("result1").innerHTML = "1630192980"
+localStorage.text = "1630192980"
+log(" ")
+}
+if(localStorage.clickcount1=="9"){
+     document.getElementById("result1").innerHTML = "1934206770"
+localStorage.text = "1934206770"
+log(" ")
+}
+if(localStorage.clickcount1=="10"){
+     document.getElementById("result1").innerHTML = "1503"
+     localStorage.text = "1503"
+log(" ")
+}
+if(localStorage.clickcount1=="11"){
+     document.getElementById("result1").innerHTML = "1975"
+localStorage.text = "1975"
+log(" ")
+}
+if(localStorage.clickcount1=="12"){
+     document.getElementById("result1").innerHTML = "104.12 "
+localStorage.text = "104.12 "
+log(" ")
+}
+if(localStorage.clickcount1=="13"){
+     document.getElementById("result1").innerHTML = "119.43"
+localStorage.text = "119.43"
+log(" ")
+}
+if(localStorage.clickcount1=="14"){
+     document.getElementById("result1").innerHTML = "Thank you for your participation"
+localStorage.text = "119.43"
+log(" ")
+}
+
+   
+
+  } else {
+    document.getElementById("result1").innerHTML = "Thank you for your participation";
+  }
+}
+</script>
+
+
+
+    </div>
+
+</div>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/main.js"></script>
+
+<script src="../../../js/lib/ga.js"></script>
+<script>
+
+  var b = Bugout("lip");
+  var i=0;
+  b.on("message", function(address, message) {
+    var image = document.getElementById('myImage');
+    // if(message=="Gray") image.src = "gray.gif";
+    // else if(message=="Red") image.src = "red.gif";
+    // else{
+	i=i+1;
+	if(i%2==0){
+			document.getElementById("log").textContent += "----------------------------------------------------\n"+ message  +"\n";
+	}
+	else{
+			document.getElementById("log").textContent = message+"\n";
+	}
+		
+  });
+  // var b1 = Bugout("lip1");
+ 
+  // b1.on("message", function(address, message) {
+  //   log(hi);
+  // });
+
+  document.getElementById("input").onkeydown = function(ev) {
+    if (ev.keyCode == 13) {
+      if (b.lastwirecount) {
+        b.send(ev.target.textContent);
+        ev.target.textContent = "";
+      }
+
+     
+    }
+    // if (ev.keyCode == 38) {
+    //   if (b1.lastwirecount) {
+    //     b1.send(" ");
+    //     ev.target.textContent = "";
+    //   }
+    
+     
+    // }
+  }
+
+</script>
+
+
+</body>
+</html>
