@@ -14,9 +14,9 @@
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <style>
     pre { align:center;color: #000; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; }
-	  #log1 { align:center;background-color:#f7fbfd;}
-	#log3{ align:center;color: #fff; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; background-color: white;}
-	#log2{ align:center;background-color:#f7fdf8;}
+	  #log1 { align:center;background-color:#D6EAF8;}
+/* 	#log3{ align:center;color: #fff; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; background-color: white;} */
+	#log2{ align:center;background-color:#D1F2EB;}
 	
     #input { align:center;border-bottom: 0px solid #ccc; background-color: #fff; padding: 0.25em; outline: 0; opacity:0.5;}
     #input::before { content: ""; }
@@ -73,7 +73,7 @@ function log(message) {
 <div style="text-align:center">
     <!-- <div id="result2" style="text-align:center"></div></div> -->
  <pre id="log1" style="text-align: center;"></pre>
-  <pre id="log3" style="text-align: center;"></pre>
+<!--   <pre id="log3" style="text-align: center;"></pre> -->
   <pre id="log2" style="text-align: center;"></pre>
   
 	<pre id="input" style="text-align: center;"></pre>
@@ -191,10 +191,10 @@ log(" ")
     // else{
 	i=i+1;
 	if(i%2==0){
-			document.getElementById("log2").textContent += "--------------------------------------------\n"+ message  +"\n";
+			document.getElementById("log2").textContent += " \n"+ message  + " \n"+"\n";
 	}
 	else{
-			document.getElementById("log1").textContent = message+"\n";
+			document.getElementById("log1").textContent = " \n"+ message+" \n"+"\n";
 	}
 		
   });
