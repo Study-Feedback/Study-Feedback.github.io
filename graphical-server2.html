@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style>
+    pre { align:center;color: #000; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; }
+    #input { align:center;border-bottom: 2px solid #ccc; background-color: #fff; padding: 0.25em; outline: 0; }
+    #input::before { content: ""; }
+  </style>
+  <script>
+    function log(message) {
+      document.getElementById("log").textContent = message + "\n";
+    }
+  </script>
+  <script src="https://chr15m.github.io/bugout/bugout.min.js" type="application/javascript"></script>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Lip Reading">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="Lip Reading">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Lip Reading</title>
+
+    <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../css/main.css">
+	
+	    <style>
+    {
+        box-sizing: border-box;
+    }
+    /* Set additional styling options for the columns*/
+    .column {
+    float: left;
+    width: 50%;
+    }
+
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+    </style>
+
+</head>
+
+<body>
+
+<div id="container" >
+   
+ <div style="text-align:center">
+    <!-- <video id="gum-local" autoplay playsinline width="570" height="340"></video>
+      </div>
+    <div style="text-align:center">
+    <button id="showVideo"  >Open camera</button></div> -->
+    <div style="text-align:center"> <p style="margin-top:9cm;"><button onclick="clickCounter1()" type="button">Start</button> <div id="result1"></div></p></div>
+
+<div style="text-align:center">
+    <div id="result2" style="text-align:center"></div></div>
+  <pre id="log" style="text-align: center;"></pre>
+<pre id="input" style="text-align: center;" contenteditable="true"></pre>
+
+
+
+
+    </div>
+
+</div>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/main.js"></script>
+
+<script src="../../../js/lib/ga.js"></script>
+
+
+<script>
+
+  var b = Bugout("lip");
+ 
+  b.on("message", function(address, message) {
+    log(message);
+  });
+
+  document.getElementById("input").onkeydown = function(ev) {
+    if (ev.keyCode == 13) {
+      if (b.lastwirecount) {
+        b.send(ev.target.textContent);
+        ev.target.textContent = "";
+      }
+      ev.preventDefault();
+    }
+
+    if (ev.keyCode == 38) {
+      if (b.lastwirecount) {
+        b.send("hi");
+        ev.target.textContent = "";
+      }
+    
+     
+    }
+  }
+
+
+</script>
+<div class="row">
+        <div class="column">
+            <p><input type="text" size="30" value="Red">
+          <button id="b1">Send</button>
+          </p>
+          </div>
+        <div class="column">
+      <p><input type="text" size="30" value="Gray">
+          <button id="b2">Send</button>
+          </p>
+          </div>
+
+ <div class="row">
+        <div class="column">
+            <h2>Input</h2>
+			<ol>
+            <li><p><input type="text" size="30" value="my favorite place to visit">
+					<button id="button1">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="watch out for low flying objects">
+					<button id="button2">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="hair gel is very greasy">
+					<button id="button3">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="he is still on our team">
+					<button id="button4">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the dow jones index has risen">
+					<button id="button5">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="my preferred treat is chocolate">
+					<button id="button6">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the king sends you to the tower">
+					<button id="button7">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="we are subjects and must obey">
+					<button id="button8">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="movie about a nutty professor">
+					<button id="button9">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="come and see our new car">
+					<button id="button10">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="coming up with killer sound bites">
+					<button id="button11">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I am going to a music lesson">
+					<button id="button12">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the opposing team is over there">
+					<button id="button13">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="soon we will return from the city">
+					<button id="button14">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I am wearing a tie and a jacket">
+					<button id="button15">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the quick brown fox jumped">
+					<button id="button16">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="all together in one big pile">
+					<button id="button17">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I do not fully agree with you">
+					<button id="button18">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="gas bills are sent monthly">
+					<button id="button19">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="earth quakes are predictable">
+					<button id="button20">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="life is but a dream">
+					<button id="button21">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="take it to the recycling depot">
+					<button id="button22">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="sent this by registered mail">
+					<button id="button23">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="fall is my favorite season">
+					<button id="button24">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a fox is a very smart animal">
+					<button id="button25">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="can we play cards tonight">
+					<button id="button26">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="get rid of that immediately">
+					<button id="button27">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I watched blazing saddles">
+					<button id="button28">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the sum of the parts">
+					<button id="button29">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="they love to yap about nothing">
+					<button id="button30">Send</button>
+					</p></li>
+			</ol>
+        </div>
+        <div class="column">
+			<h2>Output</h2>
+			<ol>
+            <li><p><input type="text" size="30" value="my favorite place to visit">
+					<button id="buttonn1">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="watch out for low objects">
+					<button id="buttonn2">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="hair gel is very greasy">
+					<button id="buttonn3">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="he is still on our team">
+					<button id="buttonn4">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the dow jones index has risen">
+					<button id="buttonn5">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="my treat is chocolate">
+					<button id="buttonn6">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the king sends you to the tower">
+					<button id="buttonn7">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="we are and must obey">
+					<button id="buttonn8">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="movie about a nutty professor">
+					<button id="buttonn9">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="come and see our new car">
+					<button id="buttonn10">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="coming up with killer sound bites">
+					<button id="buttonn11">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I am going to a music lesson">
+					<button id="buttonn12">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the team is over there">
+					<button id="buttonn13">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="soon we will return from the city">
+					<button id="buttonn14">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I am a tie and a jacket">
+					<button id="buttonn15">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the quick brown fox jumped">
+					<button id="buttonn16">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="all together in one big pile">
+					<button id="buttonn17">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I do not fully agree with you">
+					<button id="buttonn18">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="gas bills are sent monthly">
+					<button id="buttonn19">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="earth quakes are predictable">
+					<button id="buttonn20">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="life is but a dream">
+					<button id="buttonn21">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="take it to the depot">
+					<button id="buttonn22">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="sent this by registered mail">
+					<button id="buttonn23">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="fall is my favorite season">
+					<button id="buttonn24">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a fox is a very smart animal">
+					<button id="buttonn25">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="can we play cards tonight">
+					<button id="buttonn26">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="get rid of that">
+					<button id="buttonn27">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I watched blazing saddles">
+					<button id="buttonn28">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the sum of the parts">
+					<button id="buttonn29">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="they love to yap about nothing">
+					<button id="buttonn30">Send</button>
+					</p></li>
+			</ol>
+        </div>
+    </div>
+<script>
+
+document.getElementById("b1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="Red"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+
+document.getElementById("b2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="Gray"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+
+  document.getElementById("button1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="my favorite place to visit"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="watch out for low flying objects"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button3").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="hair gel is very greasy"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button4").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="he is still on our team"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button5").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the dow jones index has risen"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button6").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="my preferred treat is chocolate"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button7").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the king sends you to the tower"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button8").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="we are subjects and must obey"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button9").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="movie about a nutty professor"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button10").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="come and see our new car"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button11").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="coming up with killer sound bites"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button12").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I am going to a music lesson"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button13").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the opposing team is over there"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button14").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="soon we will return from the city"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button15").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I am wearing a tie and a jacket"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button16").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the quick brown fox jumped"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button17").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="all together in one big pile"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button18").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I do not fully agree with you"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button19").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="gas bills are sent monthly"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button20").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="earth quakes are predictable"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button21").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="life is but a dream"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button22").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="take it to the recycling depot"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+    document.getElementById("button23").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="sent this by registered mail"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button24").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="fall is my favorite season"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button25").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a fox is a very smart animal"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button26").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="can we play cards tonight"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button27").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="get rid of that immediately"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button28").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I watched blazing saddles"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button29").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the sum of the parts"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button30").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="they love to yap about nothing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+
+  document.getElementById("buttonn1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="my favorite place to visit"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="watch out for low objects"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn3").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="hair gel is very greasy"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn4").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="he is still on our team"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn5").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the dow jones index has risen"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn6").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="my treat is chocolate"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn7").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the king sends you to the tower"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn8").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="we are and must obey"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn9").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="movie about a nutty professor"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn10").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="come and see our new car"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn11").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="coming up with killer sound bites"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn12").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I am going to a music lesson"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn13").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the team is over there"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn14").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="soon we will return from the city"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn15").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I am a tie and a jacket"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn16").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the quick brown fox jumped"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn17").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="all together in one big pile"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn18").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I do not fully agree with you"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn19").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="gas bills are sent monthly"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn20").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="earth quakes are predictable"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn21").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="life is but a dream"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn22").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="take it to the depot"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+    document.getElementById("buttonn23").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="sent this by registered mail"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn24").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="fall is my favorite season"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn25").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a fox is a very smart animal"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn26").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="can we play cards tonight"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn27").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="get rid of that"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn28").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I watched blazing saddles"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn29").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the sum of the parts"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn30").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="they love to yap about nothing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+</script>
+
+</body>
+</html>
