@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<!--
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+-->
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style>
+    pre { align:center;color: #000; white-space: pre-wrap; word-wrap: break-word; text-shadow: 0 0 10px #ccc; }
+    #input { align:center;border-bottom: 2px solid #ccc; background-color: #fff; padding: 0.25em; outline: 0; }
+    #input::before { content: ""; }
+  </style>
+  <script>
+    function log(message) {
+      document.getElementById("log").textContent = message + "\n";
+    }
+  </script>
+  <script src="https://chr15m.github.io/bugout/bugout.min.js" type="application/javascript"></script>
+
+    <meta charset="utf-8">
+    <meta name="description" content="Lip Reading">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="Lip Reading">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Lip Reading</title>
+
+    <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png">
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../../css/main.css">
+	
+	    <style>
+    {
+        box-sizing: border-box;
+    }
+    /* Set additional styling options for the columns*/
+    .column {
+    float: left;
+    width: 50%;
+    }
+
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+    </style>
+
+</head>
+
+<body>
+
+<div id="container" >
+   
+ <div style="text-align:center">
+    <!-- <video id="gum-local" autoplay playsinline width="570" height="340"></video>
+      </div>
+    <div style="text-align:center">
+    <button id="showVideo"  >Open camera</button></div> -->
+    <div style="text-align:center"> <p style="margin-top:9cm;"><button onclick="clickCounter1()" type="button">Start</button> <div id="result1"></div></p></div>
+
+<div style="text-align:center">
+    <div id="result2" style="text-align:center"></div></div>
+  <pre id="log" style="text-align: center;"></pre>
+<pre id="input" style="text-align: center;" contenteditable="true"></pre>
+
+
+
+
+    </div>
+
+</div>
+
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="js/main.js"></script>
+
+<script src="../../../js/lib/ga.js"></script>
+
+
+<script>
+
+  var b = Bugout("lip");
+ 
+  b.on("message", function(address, message) {
+    log(message);
+  });
+
+  document.getElementById("input").onkeydown = function(ev) {
+    if (ev.keyCode == 13) {
+      if (b.lastwirecount) {
+        b.send(ev.target.textContent);
+        ev.target.textContent = "";
+      }
+      ev.preventDefault();
+    }
+
+    if (ev.keyCode == 38) {
+      if (b.lastwirecount) {
+        b.send("hi");
+        ev.target.textContent = "";
+      }
+    
+     
+    }
+  }
+
+
+</script>
+
+
+ <div class="row">
+        <div class="column">
+            <h2>Input</h2>
+			<ol>
+            <li><p><input type="text" size="30" value="I can still feel your presence">
+					<button id="button1">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the dog will bite you">
+					<button id="button2">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a most ridiculous thing">
+					<button id="button3">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="where did you get that tie">
+					<button id="button4">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="what a lovely red jacket">
+					<button id="button5">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="do you like to shop on Sunday">
+					<button id="button6">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I spilled coffee on the carpet">
+					<button id="button7">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the largest of the five oceans">
+					<button id="button8">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="shall we play a round of cards">
+					<button id="button9">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="do a good deed to someone">
+					<button id="button10">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="quick there is someone knocking">
+					<button id="button11">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="flashing red light means stop">
+					<button id="button12">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="sprawling subdivisions are bad">
+					<button id="button13">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="where did I leave my glasses">
+					<button id="button14">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="on the way to the cottage">
+					<button id="button15">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="do not drink the water">
+					<button id="button16">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="my car always breaks in the winter">
+					<button id="button17">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the chamber makes important decisions">
+					<button id="button18">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="this phenomenon will never occur">
+					<button id="button19">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="obligations must be met first">
+					<button id="button20">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="valid until the end of the year">
+					<button id="button21">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="file all complaints in writing">
+					<button id="button22">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="tickets are very expensive">
+					<button id="button23">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a picture is worth many words">
+					<button id="button24">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="this camera takes nice photograph">
+					<button id="button25">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="it looks like a shack">
+					<button id="button26">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="the dog buried the bone">
+					<button id="button27">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="I will put on my glasses">
+					<button id="button28">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a touchdown in the last minute">
+					<button id="button29">Send</button>
+					</p></li>
+			<li><p><input type="text" size="30" value="a lot of chlorine in the water">
+					<button id="button30">Send</button>
+					</p></li>
+			</ol>
+        </div>
+        <div class="column">
+			<h2>Output</h2>
+			<ol>
+             <li><p><input type="text" size="30" value="I can still feel your presence">
+          <button id="buttonn1">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="the dog will bite you">
+          <button id="buttonn2">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="a most thing">
+          <button id="buttonn3">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="where did you get that tie">
+          <button id="buttonn4">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="what a lovely red jacket">
+          <button id="buttonn5">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="do you like to shop on Sunday">
+          <button id="buttonn6">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="I coffee on the carpet">
+          <button id="buttonn7">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="the largest of the five oceans">
+          <button id="buttonn8">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="shall we play a round of cards">
+          <button id="buttonn9">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="do a good deed to someone">
+          <button id="buttonn10">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="quick there is someone">
+          <button id="buttonn11">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="flashing red light means stop">
+          <button id="buttonn12">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="sprawling are bad">
+          <button id="buttonn13">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="where did I leave my glasses">
+          <button id="buttonn14">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="on the way to the cottage">
+          <button id="buttonn15">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="do not drink the water">
+          <button id="buttonn16">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="my car always breaks in the winter">
+          <button id="buttonn17">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="the chamber makes important decisions">
+          <button id="buttonn18">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="this phenomenon will never occur">
+          <button id="buttonn19">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="obligations must be met first">
+          <button id="buttonn20">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="valid until the end of the year">
+          <button id="buttonn21">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="file all in writing">
+          <button id="buttonn22">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="tickets are very expensive">
+          <button id="buttonn23">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="a picture is worth many words">
+          <button id="buttonn24">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="this camera takes nice photograph">
+          <button id="buttonn25">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="it looks like a shack">
+          <button id="buttonn26">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="the dog the bone">
+          <button id="buttonn27">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="I will put on my glasses">
+          <button id="buttonn28">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="a touchdown in the last minute">
+          <button id="buttonn29">Send</button>
+          </p></li>
+      <li><p><input type="text" size="30" value="a lot of in the water">
+          <button id="buttonn30">Send</button>
+          </p></li>
+			</ol>
+        </div>
+    </div>
+<script>
+
+// document.getElementById("b1").onclick = function(ev) {
+//     if (ev.button == 0) {
+//       if (b.lastwirecount) {
+//     ev.target.textContent="Red"
+//         b.send(ev.target.textContent);
+//         ev.target.textContent = "Send";
+//       }
+//       ev.preventDefault();
+//     }
+//   }
+
+// document.getElementById("b2").onclick = function(ev) {
+//     if (ev.button == 0) {
+//       if (b.lastwirecount) {
+//     ev.target.textContent="Gray"
+//         b.send(ev.target.textContent);
+//         ev.target.textContent = "Send";
+//       }
+//       ev.preventDefault();
+//     }
+//   }
+
+  document.getElementById("button1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I can still feel your presence"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the dog will bite you"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button3").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a most ridiculous thing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button4").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="where did you get that tie"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button5").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="what a lovely red jacket"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button6").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="do you like to shop on Sunday"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button7").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I spilled coffee on the carpet"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button8").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the largest of the five oceans"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button9").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="shall we play a round of cards"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button10").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="do a good deed to someone"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button11").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="quick there is someone knocking"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button12").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="flashing red light means stop"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button13").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="sprawling subdivisions are bad"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button14").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="where did I leave my glasses"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button15").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="on the way to the cottage"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button16").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a lot of chlorine in the water"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button17").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="do not drink the water"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button18").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="my car always breaks in the winter"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button19").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the chamber makes important decisions"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button20").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="this phenomenon will never occur"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button21").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="obligations must be met first"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button22").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="valid until the end of the year"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+    document.getElementById("button23").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="file all complaints in writing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button24").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="tickets are very expensive"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button25").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a picture is worth many words"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button26").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="this camera takes nice photographs"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button27").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="it looks like a shack"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button28").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="the dog buried the bone"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("button29").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="I will put on my glasses"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("button30").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+		ev.target.textContent="a touchdown in the last minute"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+
+    document.getElementById("buttonn1").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="I can still feel your presence"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn2").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="the dog will bite you"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn3").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="a most thing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn4").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="where did you get that tie"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn5").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="what a lovely red jacket"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn6").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="do you like to shop on Sunday"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn7").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="I coffee on the carpet"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn8").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="the largest of the five oceans"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn9").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="shall we play a round of cards"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn10").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="do a good deed to someone"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn11").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="quick there is someone"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn12").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="flashing red light means stop"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn13").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="sprawling are bad"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn14").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="where did I leave my glasses"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn15").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="on the way to the cottage"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn16").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="a lot of in the water"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn17").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="do not drink the water"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn18").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="my car always breaks in the winter"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn19").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="the chamber makes important decisions"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn20").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="this phenomenon will never occur"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn21").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="obligations must be met first"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn22").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="valid until the end of the year"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+    document.getElementById("buttonn23").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="file all in writing"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn24").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="tickets are very expensive"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn25").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="a picture is worth many words"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn26").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="this camera takes nice photographs"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn27").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="it looks like a shack"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn28").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="the dog the bone"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+    document.getElementById("buttonn29").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="I will put on my glasses"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+  document.getElementById("buttonn30").onclick = function(ev) {
+    if (ev.button == 0) {
+      if (b.lastwirecount) {
+    ev.target.textContent="a touchdown in the last minute"
+        b.send(ev.target.textContent);
+        ev.target.textContent = "Send";
+      }
+      ev.preventDefault();
+    }
+  }
+  
+</script>
+
+</body>
+</html>
